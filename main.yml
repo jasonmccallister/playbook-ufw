@@ -16,15 +16,15 @@
     tags: firewall
 
   - name: Add rule for ssh
-    ufw: rule=allow name=ssh
+    ufw: rule=allow to_port=22 proto=tcp
     tags: firewall
 
   - name: Add rule for http
-    ufw: rule=allow name=http
+    ufw: rule=allow to_port=80 proto=tcp
     tags: firewall
 
   - name: Add rule for https
-    ufw: rule=allow name=https
+    ufw: rule=allow to_port=443 proto=tcp
     tags: firewall
 
   - name: Enable ufw on start
