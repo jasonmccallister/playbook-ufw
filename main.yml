@@ -26,9 +26,12 @@
   - name: Add rule for https
     ufw: rule=allow name=https
     tags: firewall
-    notify: enable ufw
+
+  - name: Enable ufw on start
+    ufw: state=enabled
+    notify: restart ufw
 
   handlers:
 
-  - name: enable ufw
-    ufw: state=enabled
+  - name: restart ufw
+    service: name=ufw state=restarted
