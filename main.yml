@@ -1,0 +1,34 @@
+---
+- hosts: "{{ my_hosts }}"
+  remote_user: root
+  sudo: yes
+
+  tasks:
+
+  - name: Install ufw package
+    apt: name={{ item }} state=present
+    tags: firewall
+    with_items:
+      - ufw
+
+  - name: Set default policy
+    ufw: policy=deny direction=incoming
+    tags: firewall
+
+  - name: Add rule for ssh
+    ufw: rule=allow name=ssh
+    tags: firewall
+
+  - name: Add rule for http
+    ufw: rule=allow name=http
+    tags: firewall
+
+  - name: Add rule for https
+    ufw: rule=allow name=https
+    tags: firewall
+    notify: enable ufw
+
+  handlers:
+
+  - name: enable ufw
+    ufw: state=enabled
